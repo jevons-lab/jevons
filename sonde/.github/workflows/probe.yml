@@ -1,0 +1,85 @@
+# jevons-probe — sonde de sensibilité syntaxique, en intégration continue.
+#
+# À copier dans .github/workflows/ du dépôt de votre scanner. Le job dit ce que
+# votre scanner LIT : la garde, l'épinglage, la prose — ou seulement la forme de
+# quelques commandes. Il ne dit pas s'il est bon, et ne classe aucun outil.
+#
+# JEVONS — https://github.com/jevons-lab
+# Dépôt cible : github.com/jevons-lab/probe — nom provisoire, rien n'est publié
+# à ce jour. Tant que ce dépôt n'existe pas, l'étape « checkout de la sonde »
+# échouera : c'est voulu, plutôt qu'un chemin qui ferait croire à une source.
+
+name: jevons-probe
+
+on:
+  workflow_dispatch:
+    inputs:
+      scanner:
+        description: 'Commande du scanner, {path} = répertoire de notice'
+        required: true
+        default: 'votre-scanner scan {path} --json'
+      adapter:
+        description: 'skillspector | skillvet | agentscan | cisco | sarif | generic'
+        required: true
+        default: 'sarif'
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  sonde:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout de votre scanner
+        uses: actions/checkout@v4
+
+      - name: Checkout de la sonde
+        uses: actions/checkout@v4
+        with:
+          repository: jevons-lab/probe
+          path: .jevons-probe
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Dépendances de la sonde
+        run: pip install --quiet pyyaml
+
+      - name: Installer votre scanner
+        run: |
+          # Remplacez par l'installation de votre outil.
+          # La sonde n'installe rien elle-même et n'exécute aucune notice.
+          echo "installez ici le scanner à mesurer"
+
+      - name: Passage de la sonde
+        env:
+          SCANNER: ${{ github.event.inputs.scanner || 'votre-scanner scan {path} --json' }}
+          ADAPTER: ${{ github.event.inputs.adapter || 'sarif' }}
+        run: |
+          python3 .jevons-probe/jevons_probe.py run \
+            --scanner "$SCANNER" \
+            --adapter "$ADAPTER" \
+            --relations .jevons-probe/relations.yaml \
+            --notices .jevons-probe/notices \
+            --out rapport-sonde/ \
+            --pin-version "$(git -C . rev-parse --short HEAD)" \
+            --date "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+
+      - name: Résumé dans le récapitulatif du job
+        if: always()
+        run: cat rapport-sonde/report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Conserver le rapport
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rapport-sonde
+          path: rapport-sonde/
+
+# Le job ne pose AUCUN seuil d'échec. Une relation non tenue n'est pas un bug de
+# votre scanner : c'est une mesure de ce qu'il lit. Poser un seuil reviendrait à
+# transformer une mesure en verdict, ce que la sonde refuse de faire.

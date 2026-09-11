@@ -1,0 +1,6 @@
+{
+  "_commentaire": "Adaptateur generic pour claude-skill-auditor 1.0.0. Ecrit le 2026-09-09 en lisant sa sortie --format json : summary.by_severity porte les comptes par severite. Aucune ligne de code de la sonde n'a ete modifiee pour cet outil.",
+  "chemin_json_comptes": "summary.by_severity",
+  "ordre_severites": ["critical", "high", "medium", "low", "info"],
+  "severites": {"critical": 5, "high": 4, "medium": 3, "low": 2, "info": 1, "none": 0}
+}

@@ -1,0 +1,113 @@
+JEVONS — LICENCE DES NOTICES DE LA SONDE
+Notices licence — JEVONS probe test notices
+Version 1, 2026-09-09
+
+--------------------------------------------------------------------------
+FRANÇAIS
+--------------------------------------------------------------------------
+
+Cette licence porte sur les NOTICES contenues dans `notices/` et décrites par
+`relations.yaml`. Le CODE de la sonde est sous une licence distincte, permissive,
+donnée dans le fichier LICENSE à la racine.
+
+CE QUI EST PERMIS
+
+  Utiliser les notices pour ÉVALUER un scanner d'artefacts pour agents IA :
+  les lui soumettre, mesurer ce qu'il en rend, publier le résultat de cette
+  mesure. À titre gratuit, commercial ou non, sans autorisation préalable.
+
+  Les modifier et en dériver de nouvelles notices, sous cette même licence, en
+  conservant l'avertissement en tête de chaque fichier.
+
+CE QUI EST INTERDIT
+
+  RE-SERVIR LES NOTICES COMME ARTEFACTS INSTALLABLES. Elles ne doivent pas être
+  publiées, distribuées ni référencées comme des skills, plugins, serveurs MCP
+  ou paquets qu'un agent ou un utilisateur pourrait installer et exécuter. Elles
+  ne vont dans aucune place de marché, aucun registre, aucun catalogue
+  d'artefacts.
+
+  Retirer ou modifier la ligne d'avertissement qui ouvre chaque notice :
+  `<!-- synthetic test notice — JEVONS paired strata — not a real skill -->`
+
+  Présenter une notice comme un artefact réel, un incident réel, ou la preuve
+  d'une attaque observée. Elles sont synthétiques, écrites pour la mesure.
+
+RÈGLE DES IDENTITÉS VISÉES
+
+  Toute identité visée par une notice publiée sous cette licence est SOIT
+  réservée par une RFC (.invalid, .example, .test, .localhost, example.com,
+  example.net, example.org), SOIT possédée par jevons-lab avant publication :
+  dépôt de l'organisation, image du namespace, paquet réservé sur l'index.
+
+  Une identité libre — qui ne résout pas, ou qui rend 404 — est INTERDITE.
+  Publier une notice qui vise un nom que personne ne détient revient à publier
+  une liste de noms à enregistrer, vers lesquels chaque utilisateur pointera son
+  scanner.
+
+  Cette règle vaut aussi pour toute notice DÉRIVÉE de celles-ci.
+
+CE QU'ELLES SONT
+
+  Des paires de notices dont un seul trait diffère. Le comportement est simulé.
+  Aucune charge réelle, aucune exfiltration. Elles contiennent des motifs qui
+  RESSEMBLENT à des commandes dangereuses : c'est leur objet.
+
+  NE PAS LES INSTALLER. Les exécuter en enclave. La sonde n'exécute jamais une
+  notice : elle appelle votre scanner, et rien d'autre.
+
+ABSENCE DE GARANTIE
+
+  Fournies telles quelles, sans garantie d'aucune sorte. Les auteurs ne sont pas
+  responsables d'un dommage résultant de leur usage, et en particulier d'un
+  usage contraire aux interdictions ci-dessus.
+
+--------------------------------------------------------------------------
+ENGLISH
+--------------------------------------------------------------------------
+
+This licence covers the NOTICES in `notices/`, described by `relations.yaml`.
+The probe's CODE is under a separate permissive licence, in LICENSE.
+
+PERMITTED
+
+  Using the notices to EVALUATE a scanner of AI-agent artefacts: submitting them
+  to it, measuring what it returns, publishing that measurement. Free of charge,
+  commercially or not, without prior permission.
+
+  Modifying them and deriving new notices, under this same licence, keeping the
+  warning line at the top of each file.
+
+RULE ON TARGETED IDENTITIES
+
+  Every identity a published notice points at is EITHER reserved by an RFC
+  (.invalid, .example, .test, .localhost, example.com/net/org) OR owned by
+  jevons-lab before publication: a repository of the organisation, an image of
+  the namespace, a name reserved on the relevant package index.
+
+  A free identity — one that does not resolve, or returns 404 — is FORBIDDEN.
+  Publishing a notice that points at a name nobody holds amounts to publishing a
+  list of names to register, at which every user will aim their scanner.
+
+  This rule applies to derived notices as well.
+
+PROHIBITED
+
+  RE-SERVING THE NOTICES AS INSTALLABLE ARTEFACTS. They must not be published,
+  distributed or referenced as skills, plugins, MCP servers or packages that an
+  agent or a user could install and run. They go into no marketplace, no
+  registry, no artefact catalogue.
+
+  Removing or altering the warning line that opens each notice.
+
+  Presenting a notice as a real artefact, a real incident, or evidence of an
+  observed attack. They are synthetic, written for measurement.
+
+NO WARRANTY
+
+  Provided as is, without warranty of any kind. The authors are not liable for
+  damage arising from their use, in particular from use contrary to the
+  prohibitions above.
+
+--------------------------------------------------------------------------
+JEVONS — https://github.com/jevons-lab

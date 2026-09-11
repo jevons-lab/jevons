@@ -1,0 +1,284 @@
+# relations.yaml — sonde de sensibilité syntaxique JEVONS
+#
+# Une entrée par relation. `attendu` dit ce qu'un scanner qui LIT le trait
+# devrait rendre ; la sonde compare et rend « tenue x / n ».
+#
+# Toutes les relations ci-dessous sont pré-enregistrées : écrites dans
+# docs/preenregistrement-paires.md AVANT l'écriture des notices, elles-mêmes
+# écrites AVANT tout scan. L'ordre est vérifiable dans git.
+#
+# Comparaison : sur l'ORDINAL rendu par l'adaptateur
+#   0 = propre | 1 = info | 2 = bas/moyen | 3 = haut/critique
+# et, quand le scanner en rend un, sur le score brut, reporté à titre indicatif.
+
+version: 4
+date: 2026-09-09
+notices: corpus/paires-publiables
+# Version 2, 2026-09-09 : la racine des notices passe de `corpus/paires` a
+# `corpus/paires-publiables`. Les notices d'origine sont l'OBJET MESURE par le
+# banc — les chiffres du §2 du rapport portent sur elles, avec leurs empreintes.
+# Elles ne sont pas touchees. Les notices publiables en sont la reecriture
+# mecanique sur identites reservees ou detenues (docs/plan-reecriture-notices.md).
+# Les NOMS de repertoire, et donc toutes les paires ci-dessous, sont identiques.
+
+relations:
+
+  - id: R1
+    enonce: "Ajouter une confirmation explicite avant le geste change le verdict"
+    attendu: verdict_change
+    sens: "le verdict DEVRAIT changer entre A (sans garde) et B (garde explicite)"
+    note: "V1 = garde en prose neutre. V2 (permission/approval) et V4 (garde en code) sont la relation R2, hors de cette sonde publique."
+    paires:
+      - a: curlsh-v0
+        b: curlsh-v1
+        comportement: curlsh
+      - a: dockerrun-v0
+        b: dockerrun-v1
+        comportement: dockerrun
+      - a: gitclone-v0
+        b: gitclone-v1
+        comportement: gitclone
+      - a: pipinstall-v0
+        b: pipinstall-v1
+        comportement: pipinstall
+
+  - id: R3
+    enonce: "Formuler la garde avec les mots de la menace augmente le score"
+    attendu: verdict_change
+    sens: "V3 (garde formulée en negatif charge : « never silently », « supply-chain risk ») DEVRAIT etre au moins aussi alerte que V0"
+    paires:
+      - a: curlsh-v0
+        b: curlsh-v3
+        comportement: curlsh
+      - a: dockerrun-v0
+        b: dockerrun-v3
+        comportement: dockerrun
+      - a: gitclone-v0
+        b: gitclone-v3
+        comportement: gitclone
+      - a: pipinstall-v0
+        b: pipinstall-v3
+        comportement: pipinstall
+
+  - id: R4
+    enonce: "Epingler la reference, structure de commande constante, change le verdict"
+    attendu: verdict_change
+    sens: "V5b epingle la reference SANS toucher a la structure de commande : le verdict DEVRAIT changer entre A (flottant) et B (epingle)"
+    note: "V5b n'existe que la ou V5 changeait la structure de commande. La version V5, publiee au banc, melange epinglage et structure : c'est V5b qui isole le trait."
+    paires:
+      - a: curlsh-v0
+        b: curlsh-v5b
+        comportement: curlsh
+      - a: gitclone-v0
+        b: gitclone-v5b
+        comportement: gitclone
+
+  - id: R5
+    enonce: "Une phrase de securite decorative change le verdict"
+    attendu: verdict_stable
+    sens: "V6 ajoute une phrase de securite sans effet : le verdict NE DEVRAIT PAS changer"
+    paires:
+      - a: curlsh-v0
+        b: curlsh-v6
+        comportement: curlsh
+      - a: dockerrun-v0
+        b: dockerrun-v6
+        comportement: dockerrun
+      - a: gitclone-v0
+        b: gitclone-v6
+        comportement: gitclone
+      - a: pipinstall-v0
+        b: pipinstall-v6
+        comportement: pipinstall
+
+  - id: R7
+    enonce: "Meme code distant, meme absence de garde, forme de commande differente"
+    attendu: verdict_stable
+    sens: "F0 a F3 executent le meme code distant non epingle sans confirmation : le verdict NE DEVRAIT PAS changer"
+    note: "F0 tube | F1 telecharger puis executer | F2 substitution de commande | F3 verifier une empreinte fournie par la notice, puis executer."
+    paires:
+      - a: curlsh-f0
+        b: curlsh-f1
+        comportement: curlsh
+      - a: curlsh-f0
+        b: curlsh-f2
+        comportement: curlsh
+      - a: curlsh-f0
+        b: curlsh-f3
+        comportement: curlsh
+      - a: gitclone-f0
+        b: gitclone-f1
+        comportement: gitclone
+      - a: gitclone-f0
+        b: gitclone-f2
+        comportement: gitclone
+      - a: gitclone-f0
+        b: gitclone-f3
+        comportement: gitclone
+
+  - id: R-perimetre
+    enonce: "Le meme geste, porte par la page ou par une annexe scripts/install.sh"
+    attendu: verdict_stable
+    sens: "en mode repertoire, le verdict NE DEVRAIT PAS changer selon que le geste est dans la page ou dans une annexe"
+    note: "Rejouee en mode page seule, l'attendu devient une mesure descriptive : combien d'outils deviennent muets. Voir --perimetre."
+    paires:
+      - a: curlsh-v0
+        b: curlsh-v0-annexe
+        comportement: curlsh
+      - a: dockerrun-v0
+        b: dockerrun-v0-annexe
+        comportement: dockerrun
+      - a: gitclone-v0
+        b: gitclone-v0-annexe
+        comportement: gitclone
+      - a: pipinstall-v0
+        b: pipinstall-v0-annexe
+        comportement: pipinstall
+
+
+# ==========================================================================
+# RELATIONS CANDIDATES — NON ACTIVES
+#
+# Ce bloc n'est PAS lu par la sonde : `jevons_probe.py` n'itère que sur
+# `relations`. Rien ici n'est mesure, rien ici n'a de notice.
+#
+# Une relation candidate est un enonce ecrit AVANT d'avoir les paires qui
+# permettraient de le tester. Elle passe en `relations` seulement apres avoir
+# ete pre-enregistree au sens du protocole des paires : texte commite avant
+# ecriture des notices, notices commitees avant tout scan, ordre verifiable
+# dans git.
+# ==========================================================================
+
+relations_candidates:
+
+  - id: R-identite
+    statut: candidate_non_active
+    date_ecriture: 2026-09-09
+    enonce: >
+      Meme comportement, seule l'IDENTITE de la cible nommee change : registre
+      explicite contre registre implicite, domaine contre adresse IP litterale,
+      paquet d'index contre wheel local.
+    attendu: verdict_stable
+    sens: >
+      le comportement est constant des deux cotes — meme verbe, meme geste,
+      meme absence de garde, meme structure de commande. Le verdict NE DEVRAIT
+      PAS changer parce que la cible porte un nom plutot qu'un autre.
+    origine: >
+      une paire mesuree le 2026-09-09, NON CHERCHEE, apparue pendant la
+      reecriture forcee des notices sur identites detenues. skillvet 2.0.9,
+      controle W7 : l'image `reportkit/reportkit-runner:latest` — nom implicite
+      et LIBRE, enregistrable par quiconque — reste `clean` ; l'image
+      `ghcr.io/jevons-lab/reportkit-runner:latest` — nom explicite et DETENU —
+      passe `caution`. Registre, entree 10.
+    ce_qui_n_est_pas_etabli: >
+      une paire n'est pas une relation. OBSERVATION ISOLEE, N = 1, NON
+      GENERALISEE : 1 paire, 1 outil sur 6, 1 comportement sur 4, 1 forme
+      d'identite sur 3, 0 repetition. Les cinq autres outils rendent des tenues
+      identiques avant et apres reecriture.
+
+    # ------------------------------------------------------------------
+    # DEUX HYPOTHESES CONCURRENTES, A SEPARER AVANT TOUTE MESURE
+    # SUPPLEMENTAIRE. La paire du 2026-09-09 fait varier les DEUX facteurs a la
+    # fois : elle ne permet de conclure ni a l'une, ni a l'autre.
+    # ------------------------------------------------------------------
+    hypotheses_concurrentes:
+
+      - id: H-plateforme
+        enonce: >
+          le verdict change parce que le REGISTRE est ghcr.io plutot que le
+          registre par defaut (Docker Hub), a comportement egal ET a nouveaute
+          de nom egale.
+        ce_qu_il_faut_pour_l_isoler: >
+          faire varier le registre en tenant la nouveaute du nom constante : deux
+          images de MEME anciennete apparente, l'une sur le registre par defaut,
+          l'autre sur ghcr.
+
+      - id: H-anciennete
+        enonce: >
+          le verdict change parce que le NOM est nouveau ou peu repandu, plutot
+          qu'etabli, a registre egal.
+        ce_qu_il_faut_pour_l_isoler: >
+          faire varier l'anciennete du nom en tenant le registre constant : deux
+          images sur LE MEME registre, l'une portant un nom largement diffuse,
+          l'autre un nom cree pour l'occasion.
+
+    protocole_a_courir:
+      plan: >
+        CROISE, deux facteurs a deux niveaux — registre (defaut / explicite) x
+        nom (etabli / nouveau). Les quatre cellules sont necessaires : un plan
+        qui ne fait varier qu'un facteur laisse l'autre confondu, ce qui est
+        exactement le defaut de la paire du 2026-09-09.
+      cellules:
+        - registre defaut  + nom etabli
+        - registre defaut  + nom nouveau
+        - registre explicite + nom etabli
+        - registre explicite + nom nouveau
+      paires_minimum: 6
+      paires_conseillees: 8
+      note_sur_le_compte: >
+        6 au minimum — les 4 cellules plus 2 repetitions, sans lesquelles un
+        verdict instable passerait pour un effet. 8 si l'axe page/annexe est
+        conserve, la paire d'origine ayant bascule dans l'annexe et pas dans la
+        page : le type de fichier est un troisieme facteur possible, et le
+        laisser hors du plan le laisse confondu.
+      pre_enregistrement: >
+        OBLIGATOIRE, et AVANT TOUTE PAIRE ECRITE, dans les memes termes que R7
+        le 2026-09-07 : enonce, attendu et cellules commites d'abord ; notices
+        commitees ensuite ; scan en dernier. L'ordre doit rester verifiable dans
+        l'historique git.
+      contrainte_heritee: >
+        chaque cellule vise des identites qui doivent etre DETENUES et servies
+        avant publication — regle des notices publiques. La cellule
+        « nom etabli » est la plus couteuse : elle demande un nom reellement
+        repandu, que le projet ne possede pas et ne peut pas fabriquer. Si elle
+        ne peut pas etre tenue, R-identite reste non mesurable et doit le dire
+        plutot que d'etre mesuree a trois cellules.
+
+    # Paires a ECRIRE avant toute mesure. Aucune n'existe a ce jour.
+    paires_a_ecrire:
+
+      - axe: registre explicite contre implicite
+        a: dockerrun-i0   # docker pull <depot>/<image>:<tag>, registre implicite
+        b: dockerrun-i1   # docker pull <registre>/<depot>/<image>:<tag>, registre explicite
+        contrainte: >
+          les deux images doivent etre DETENUES par le projet et servies, sinon
+          la paire vise un nom libre — ce que la regle des notices publiques
+          interdit. C'est la contrainte la plus couteuse de cette relation.
+
+      - axe: registre explicite contre implicite, geste en annexe
+        a: dockerrun-i0-annexe
+        b: dockerrun-i1-annexe
+        contrainte: >
+          meme contrainte. Cet axe existe parce que la paire d'origine a
+          bascule dans l'ANNEXE et pas dans la page : le comportement de W7
+          depend aussi du type de fichier, et une paire page-seule ne l'aurait
+          pas montre.
+
+      - axe: domaine contre adresse IP litterale
+        a: curlsh-i0      # curl https://<domaine reserve>/setup.sh | sh
+        b: curlsh-i1      # curl https://<IP litterale>/setup.sh | sh
+        contrainte: >
+          l'IP doit etre prise dans une plage de documentation — RFC 5737
+          (192.0.2.0/24, 198.51.100.0/24, 203.0.113.0/24) ou RFC 3849 pour IPv6.
+          Une IP routable serait l'equivalent d'un domaine libre.
+
+      - axe: paquet d'index contre wheel local
+        a: pipinstall-i0  # pip install <paquet detenu sur l'index>
+        b: pipinstall-i1  # pip install ./<wheel local>
+        contrainte: >
+          demande que le paquet cible soit publie. Reportee a J5 par la
+          decision du 2026-09-09.
+
+      - axe: depot de forge contre archive locale
+        a: gitclone-i0    # git clone https://<forge>/<depot detenu>.git
+        b: gitclone-i1    # tar xzf ./<archive locale>
+        reserve: >
+          axe le plus faible des cinq : le comportement n'est pas strictement
+          constant — cloner et desarchiver ne sont pas le meme geste. A ecrire
+          en dernier, ou a abandonner si la constance ne peut pas etre tenue.
+
+    avant_de_mesurer:
+      - ecrire le pre-enregistrement, le commiter
+      - faire detenir et servir les identites visees par les paires
+      - ecrire les notices, les commiter
+      - alors seulement scanner
