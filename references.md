@@ -357,6 +357,57 @@ absence annoncée sur une méthode fragile vaut moins qu'un doute déclaré.
 
 ---
 
+## 7 bis. GitHub Pages — enregistrements DNS d'un domaine apex
+
+**URL** `https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site`
+
+**Consultée le** 2026-09-10T15:02:35Z, en enclave, HTTP 200, 243 498 octets,
+`sha256:2b1cfe92282394bb32828d429897d09c4f729e73d9409214949cfa8d001f13c0`.
+Aucune redirection, url effective identique à l'url demandée.
+
+**Tableau repris verbatim**, tel qu'il figure dans la page :
+
+| Scenario | DNS record type | DNS record name | DNS record value(s) |
+|---|---|---|---|
+| Apex domain (example.com) | `A` | `@` | `185.199.108.153` `185.199.109.153` `185.199.110.153` `185.199.111.153` |
+| Apex domain (example.com) | `AAAA` | `@` | `2606:50c0:8000::153` `2606:50c0:8001::153` `2606:50c0:8002::153` `2606:50c0:8003::153` |
+| Apex domain (example.com) | `ALIAS` or `ANAME` | `@` | `USERNAME.github.io` or `ORGANIZATION.github.io` |
+| Subdomain (www.example.com, blog.example.com) | `CNAME` | `SUBDOMAIN.example.com.` | `USERNAME.github.io` or `ORGANIZATION.github.io` |
+
+**Phrases exactes reprises de la page :**
+
+> To configure an apex domain, add all of the `A` and `AAAA` records from the
+> table below, or alternatively add only the `ALIAS`/`ANAME` record from the
+> table.
+
+> If you are using an apex domain as your custom domain, we recommend also
+> setting up a `www` subdomain. If you configure the correct records for each
+> domain type through your DNS provider, GitHub Pages will automatically create
+> redirects between them.
+
+> Using a `www` subdomain alongside an apex domain is recommended for HTTPS
+> secured websites.
+
+**Ce que la page dit et qu'on ne doit pas lire de travers.** Les `A`/`AAAA`
+d'une part et l'`ALIAS`/`ANAME` d'autre part sont **deux voies alternatives**,
+pas complémentaires : « *or alternatively* ». Le `CNAME` du tableau est un
+enregistrement DNS de sous-domaine ; il ne se confond pas avec le **fichier**
+`CNAME` de l'export, qui dit à GitHub Pages quel domaine servir. Les deux sont
+nécessaires et ne se remplacent pas.
+
+**Ce que ce relevé n'établit pas.** Ni que ces adresses soient stables dans le
+temps — GitHub les a déjà changées par le passé et la page est la seule source
+qui fasse foi le jour où l'on saisit —, ni ce que l'interface d'un registrar
+attend exactement dans son champ « nom » : la page donne le nom pleinement
+qualifié (`SUBDOMAIN.example.com.`), là où beaucoup d'interfaces attendent le
+seul label (`www`). Les deux désignent la même chose ; la forme à saisir dépend
+du registrar et se vérifie chez lui, pas ici.
+
+**Non appliqué à ce jour.** Aucun enregistrement DNS n'est posé, Pages n'est pas
+activé, et le dépôt de publication n'existe pas.
+
+---
+
 ## 8. Ce que ce fichier remplace
 
 `BRIEF-SESSION-STRATEGIE.md`, section « Relevés le 08/09 (recherche web, **à

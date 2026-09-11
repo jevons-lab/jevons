@@ -45,6 +45,8 @@ Vérifier la chaîne : `python3 tools/registre.py verifier`
 | 26 | 2026-09-09 | 1 (`nous`) | ouverte | `rectification` | Rectification de l'entrée 20 — deux faits ont changé après son sceau, le jour même : le régime de quatre de ses cas, et la présence de quatre de ses artefacts |
 | 27 | 2026-09-10 | — | acte | `classement` | Acte d'ouverture de l'entrée 3 — le signalement à l'éditeur de l'outil est publié, le sceau a fait son office |
 | 28 | 2026-09-10 | 1 (`nous`) | ouverte | `rectification` | SUBSTANTIEL — une décision de transparence appliquée dans le registre et silencieusement annulée dans deux sorties, par deux générateurs distincts |
+| 29 | 2026-09-11 | 1 (`nous`) | ouverte | `observation` | Le registre est public — bascule du 2026-09-11, 28 entrées servies sur jevons.fr |
+| 30 | 2026-09-11 | 1 (`nous`) | ouverte | `rectification` | Rectification de l'entrée 29 — la cause de l'écart HTTPS n'était ni la propagation ni le réseau, mais l'horloge de notre propre enclave |
 
 ---
 
@@ -3112,5 +3114,356 @@ two defects.
 empreinte du contenu  sha256:dd2644e032523bad055902972b8c5069873ca4553287b45d96469e2e3c0cbf87
 empreinte             252acbc334ae9f8376b0d6450912391e5d623307636e1a9a7581999ee377c972
 empreinte précédente  018c6b6c891a7aa1609b7283c427bd44ea268f1721320aaa200ddd07f1d72aa4
+```
+
+---
+
+## 29. Le registre est public — bascule du 2026-09-11, 28 entrées servies sur jevons.fr
+
+**Date du fait** 2026-09-11 — **type** `observation` — **classe** 1 `nous` — **statut** ouverte
+
+*(français ci-dessous, English below — **le français fait foi**)*
+
+---
+
+## Français — texte de référence
+
+### Le fait
+
+Le **2026-09-11**, le registre est devenu public. Le dépôt `jevons-lab/jevons`
+est passé en visibilité publique à **06:58:23 UTC**, GitHub Pages y est activé
+— source `main`, racine —, et le domaine `jevons.fr` sert les **28 entrées**
+que portait le registre à cette date.
+
+Le commit publié est **`1c83e4b`**, du 2026-09-11 à 05:52:32 UTC : 65 fichiers,
+l'export produit par `tools/preparer-export-public.py` sous ses contrôles C1 à
+C6 et le contrôle de concordance des sorties.
+
+### Ce que la bascule publie, et ce qu'elle ne publie pas
+
+**Publié** : les entrées ouvertes en clair, titre, corps, sources et empreintes ;
+la sonde et ses 42 notices ; les rapports de la sonde ; `references.md` ; la
+règle de publication du registre.
+
+**Non publié** : le corpus, ses corps et ses annonces ; les sorties brutes des
+scanners ; `registre.jsonl`, la source chaînée ; le journal de travail ; et le
+**corps des entrées scellées**. Les entrées **20 et 21** restent réduites à leur
+sceau — date, classe, empreinte de contenu, empreinte de chaîne, rien d'autre.
+
+Le dépôt publié est **neuf, sans historique** : un commit, reconstruit depuis
+`export-public/`. Le dépôt de travail ne devient jamais public tel quel, parce
+que son historique garde ce qu'une correction du présent ne retire pas.
+
+### Ce que la bascule engage
+
+**Une entrée ouverte l'est pour de bon.** Jusqu'ici, « ouverte » désignait un
+statut dans un fichier local ; désormais un tiers peut lire, recalculer et
+citer. La règle du registre — une entrée n'est jamais modifiée, une entrée
+fausse se corrige par une entrée suivante — cesse d'être une discipline interne
+et devient une promesse tenue devant quelqu'un.
+
+**Les deux sceaux engagent davantage.** Les entrées 20 et 21 mettent en cause un
+tiers qui ne peut ni voir le contenu scellé, ni le contester. Leurs empreintes
+sont maintenant publiques et datées : le jour de leur ouverture, n'importe qui
+pourra vérifier que le texte publié est bien celui qui était figé aujourd'hui.
+C'est la seule chose qu'un registre apporte qu'une publication ordinaire
+n'apporte pas.
+
+### Ce que cette entrée n'établit pas
+
+- **Que le registre soit lu.** Une adresse qui répond n'est pas un lecteur.
+- **Que ce qui est publié soit juste.** La bascule publie des entrées qui
+  portent chacune leurs réserves, y compris celles qui rapportent nos propres
+  défauts — l'entrée 1 est une rétractation, l'entrée 28 un défaut de notre
+  dispositif trouvé avant publication. Rendre public ne valide rien.
+- **Qu'aucune entrée ne devra être rectifiée.** Le registre est fait pour cela,
+  et l'aura probablement à faire.
+- **Rien sur le contenu des entrées 20 et 21**, qui restent scellées.
+
+### Une limite d'instrument, notée le jour même
+
+Depuis l'enclave, `https://jevons.fr` **ne répond pas** — code 000, échec de
+connexion, tandis que `http://jevons.fr` rend 200 et sert les 28 entrées. Le
+fondateur constate au même moment, dans son navigateur, que l'adresse s'affiche
+en HTTPS avec le cadenas et sans avertissement.
+
+L'écart est donc **du côté de l'enclave** — propagation ou restriction réseau —
+et non du site. Il est consigné ici parce qu'il change ce qu'un contrôle fait
+depuis l'enclave peut conclure : **l'absence de réponse y vaut absence de
+preuve, pas preuve d'absence.** À revérifier ; si l'écart persiste alors qu'un
+navigateur passe, c'est une limite de l'enclave à documenter, pas un défaut du
+site.
+
+---
+
+## English — courtesy translation (the French text prevails)
+
+### The fact
+
+On **2026-09-11** the register became public. The `jevons-lab/jevons` repository
+switched to public visibility at **06:58:23 UTC**, GitHub Pages is enabled on it
+— source `main`, root — and the `jevons.fr` domain serves the **28 entries** the
+register held on that date.
+
+The published commit is **`1c83e4b`**, of 2026-09-11 at 05:52:32 UTC: 65 files,
+the export produced by `tools/preparer-export-public.py` under controls C1 to C6
+and the output concordance control.
+
+### What the switch publishes, and what it does not
+
+**Published**: open entries in full — title, body, sources and hashes; the probe
+and its 42 notices; the probe's reports; `references.md`; the register's
+publication rule.
+
+**Not published**: the corpus, its bodies and announcements; raw scanner
+outputs; `registre.jsonl`, the chained source; the working journal; and the
+**body of sealed entries**. Entries **20 and 21** remain reduced to their seal —
+date, class, content hash, chain hash, nothing else.
+
+The published repository is **new, without history**: one commit, rebuilt from
+`export-public/`. The working repository never becomes public as it stands,
+because its history keeps what a correction of the present does not remove.
+
+### What the switch commits us to
+
+**An open entry is open for good.** Until now "open" described a status in a
+local file; from now on a third party can read, recompute and cite. The
+register's rule — an entry is never modified, a false entry is corrected by a
+later entry — stops being internal discipline and becomes a promise kept before
+someone.
+
+**The two seals commit us further.** Entries 20 and 21 implicate a third party
+who can neither see the sealed content nor contest it. Their hashes are now
+public and dated: on the day they are opened, anyone will be able to verify that
+the published text is the one frozen today. That is the only thing a register
+offers that ordinary publication does not.
+
+### What this entry does not establish
+
+- **That the register is read.** An address that answers is not a reader.
+- **That what is published is right.** The switch publishes entries each
+  carrying their own reservations, including those reporting our own defects —
+  entry 1 is a retraction, entry 28 a defect of our own device found before
+  publication. Making something public validates nothing.
+- **That no entry will need rectifying.** The register exists for that, and will
+  probably have to.
+- **Anything about the content of entries 20 and 21**, which remain sealed.
+
+### An instrument limit, noted the same day
+
+From the enclave, `https://jevons.fr` **does not answer** — code 000, connection
+failure — while `http://jevons.fr` returns 200 and serves the 28 entries. At the
+same moment the founder observes, in his browser, that the address displays over
+HTTPS with the padlock and no security warning.
+
+The gap is therefore **on the enclave's side** — propagation or network
+restriction — not the site's. It is recorded here because it changes what a
+check made from the enclave can conclude: **absence of an answer there is
+absence of evidence, not evidence of absence.** To be re-checked; if the gap
+persists while a browser succeeds, it is an enclave limit to document, not a
+site defect.
+
+**Sources**
+
+- https://jevons.fr — le registre public
+- https://github.com/jevons-lab/jevons — le dépôt publié, un commit, sans historique
+- commit 1c83e4b du 2026-09-11T05:52:32Z — 65 fichiers
+- registre/README.md — règle de publication, statuts, règle propre à la classe 3
+- tools/preparer-export-public.py — contrôles C1 à C6 et concordance des sorties
+- site/JOURNAL.md — procédure de publication et ses gardes
+
+```
+empreinte du contenu  sha256:52abfbe806dc7df47ebde7e5ef81981cf87d7c545b13e8067179769b2d365229
+empreinte             4237580bf1652078c2d29bfec9a0bd3e4faa59a591d7aa4f48a8653ccaea6ca4
+empreinte précédente  252acbc334ae9f8376b0d6450912391e5d623307636e1a9a7581999ee377c972
+```
+
+---
+
+## 30. Rectification de l'entrée 29 — la cause de l'écart HTTPS n'était ni la propagation ni le réseau, mais l'horloge de notre propre enclave
+
+**Date du fait** 2026-09-11 — **type** `rectification` — **classe** 1 `nous` — **statut** ouverte
+
+*(français ci-dessous, English below — **le français fait foi**)*
+
+---
+
+## Français — texte de référence
+
+### Ce que l'entrée 29 dit, et qui est faux
+
+L'entrée 29, écrite ce matin, consigne qu'un contrôle depuis l'enclave trouve
+`https://jevons.fr` sans réponse alors qu'un navigateur l'affiche avec le
+cadenas, et attribue l'écart à « **propagation ou restriction réseau** ».
+
+**Ce n'était ni l'une ni l'autre.** La cause est l'**horloge de l'enclave**.
+
+L'entrée 29 n'est pas réécrite : le registre est append-only. Ce qu'elle dit de
+juste tient — l'écart était du côté de l'enclave et non du site, et elle
+annonçait une re-vérification. C'est la cause qu'elle nomme qui est fausse, et
+c'est cette entrée-ci qui la corrige.
+
+### Les chiffres
+
+| | |
+|---|---|
+| horloge de l'enclave au moment du contrôle | `2026-09-10T16:33:44Z` |
+| horloge de l'hôte, à la même minute | `2026-09-11T07:27:18Z` |
+| écart relevé par `chronyc` | **53 614 s — 14 h 53** |
+| certificat servi, `notBefore` | `Sep 11 06:03:31 2026 GMT` |
+| certificat servi, `notAfter` | `Dec 10 06:03:30 2026 GMT` |
+| sujet | `CN=jevons.fr` |
+| depuis l'enclave | `000`, échec de connexion, 0 octet |
+| **depuis l'hôte, même minute** | **`200`, 192 351 octets, vérification TLS réussie** |
+
+Message exact rendu par `openssl s_client` depuis l'enclave :
+
+```
+verify error:num=9: certificate is not yet valid
+```
+
+L'enclave se croyait **quinze heures avant** l'émission du certificat. Pour
+elle, il n'existait pas encore.
+
+### La preuve, faite en ne changeant qu'une chose
+
+```
+avant  makestep :  écart 53 561 s   https -> 000
+après  makestep :  écart 0,000 s    https -> 200, 192 351 octets, TLS 0, 28 entrées
+```
+
+Même URL, même enclave, même réseau, même minute. **Seule l'horloge a changé.**
+
+### Pourquoi ce fait vaut d'être publié
+
+**Un contrôle a rendu un faux négatif à cause de l'instrument, pas de l'objet
+mesuré.** C'est exactement ce que ce banc mesure chez les autres — un outil qui
+rend un verdict sur la forme de ce qu'il lit plutôt que sur ce qui est —, trouvé
+chez nous, sur notre propre chaîne de vérification.
+
+Lu trop vite, le relevé disait « le site ne répond pas en HTTPS ». Il disait en
+réalité « notre enclave ne sait pas quel jour on est ». Un instrument qui se
+trompe d'époque juge une pièce qu'il n'a pas vue.
+
+### La portée, plus large que ce cas
+
+**Toute vérification TLS d'une ressource récemment publiée, faite depuis
+l'enclave sans `makestep` préalable, peut rendre un échec qui n'en est pas un.**
+Plus le certificat est récent, plus la fenêtre d'erreur est grande. Cela touche
+le contrôle des références externes, la re-vérification quotidienne, et tout
+contrôle d'une page qu'on vient de mettre en ligne.
+
+La règle en découle et est écrite dans `docs/enclave.md` : `makestep` **avant
+toute vérification TLS**, au même titre qu'avant une passe de mesure ; et devant
+un `000` sur une ressource récente, **relever l'écart d'horloge avant de
+conclure quoi que ce soit sur la ressource**.
+
+### Ce que cette entrée n'établit pas
+
+- **Qu'aucune mesure antérieure n'ait été touchée.** Les passes de mesure
+  portaient `makestep` en tête depuis le passage 5, et les contrôles de
+  références vérifient un code HTTP sans exiger TLS. Mais **je n'ai pas rejoué
+  l'historique** pour le prouver, et je ne l'affirme donc pas.
+- **Qu'un `000` soit toujours une erreur d'horloge.** Il peut être un vrai
+  échec. Ce qui est établi est qu'il faut vérifier l'instrument d'abord :
+  **l'absence de réponse depuis l'enclave vaut absence de preuve, pas preuve
+  d'absence.**
+- **Rien sur le site.** `jevons.fr` répondait correctement pendant tout
+  l'épisode.
+
+---
+
+## English — courtesy translation (the French text prevails)
+
+### What entry 29 says, and what is wrong in it
+
+Entry 29, written this morning, records that a check from the enclave finds
+`https://jevons.fr` unresponsive while a browser displays it with the padlock,
+and attributes the gap to "**propagation or network restriction**".
+
+**It was neither.** The cause is the **enclave's clock**.
+
+Entry 29 is not rewritten: the register is append-only. What it gets right
+stands — the gap was on the enclave's side and not the site's, and it announced
+a re-check. It is the cause it names that is wrong, and this entry corrects it.
+
+### The figures
+
+| | |
+|---|---|
+| enclave clock at the time of the check | `2026-09-10T16:33:44Z` |
+| host clock, same minute | `2026-09-11T07:27:18Z` |
+| offset reported by `chronyc` | **53,614 s — 14 h 53** |
+| served certificate, `notBefore` | `Sep 11 06:03:31 2026 GMT` |
+| served certificate, `notAfter` | `Dec 10 06:03:30 2026 GMT` |
+| subject | `CN=jevons.fr` |
+| from the enclave | `000`, connection failure, 0 bytes |
+| **from the host, same minute** | **`200`, 192,351 bytes, TLS verification successful** |
+
+Exact message returned by `openssl s_client` from the enclave:
+
+```
+verify error:num=9: certificate is not yet valid
+```
+
+The enclave believed itself to be **fifteen hours before** the certificate was
+issued. As far as it was concerned, the certificate did not yet exist.
+
+### The proof, made by changing one thing only
+
+```
+before makestep :  offset 53,561 s   https -> 000
+after  makestep :  offset 0.000 s    https -> 200, 192,351 bytes, TLS 0, 28 entries
+```
+
+Same URL, same enclave, same network, same minute. **Only the clock changed.**
+
+### Why this fact is worth publishing
+
+**A check returned a false negative because of the instrument, not the object
+measured.** That is exactly what this bench measures in others — a tool
+returning a verdict on the shape of what it reads rather than on what is there —
+found in ourselves, on our own verification chain.
+
+Read quickly, the reading said "the site does not answer over HTTPS". What it
+actually said was "our enclave does not know what day it is". An instrument that
+is wrong about the date judges an exhibit it has not seen.
+
+### The scope, wider than this case
+
+**Any TLS verification of a recently published resource, made from the enclave
+without a prior `makestep`, may return a failure that is not one.** The more
+recent the certificate, the wider the error window. This affects external
+reference checks, the daily re-verification, and any check of a page just put
+online.
+
+The rule follows and is written in `docs/enclave.md`: `makestep` **before any
+TLS verification**, just as before a measurement pass; and faced with a `000` on
+a recent resource, **record the clock offset before concluding anything about
+the resource**.
+
+### What this entry does not establish
+
+- **That no earlier measurement was affected.** Measurement passes have carried
+  `makestep` at their head since pass 5, and reference checks verify an HTTP code
+  without requiring TLS. But **I have not replayed the history** to prove it, and
+  so I do not assert it.
+- **That a `000` is always a clock error.** It can be a real failure. What is
+  established is that the instrument must be checked first: **absence of an
+  answer from the enclave is absence of evidence, not evidence of absence.**
+- **Anything about the site.** `jevons.fr` was answering correctly throughout
+  the episode.
+
+**Sources**
+
+- registre, entrée 29 — la bascule publique, et la cause erronée qu'elle nomme
+- docs/enclave.md — « Une horloge en retard invalide la vérification TLS (2026-09-11) »
+- docs/enclave.md — « Horloge — client NTP installé le 2026-09-08 », et le makestep en tête de passe depuis le passage 5
+- https://jevons.fr — la ressource contrôlée, servie correctement pendant tout l'épisode
+
+```
+empreinte du contenu  sha256:a3f957910d5f905dd4df1f7af1e186025afbe334aa0c60b4c82df3b235e1da6a
+empreinte             deef30a194d926f2570707a4c584611c44942e86066beee5e688f0cc583e9214
+empreinte précédente  4237580bf1652078c2d29bfec9a0bd3e4faa59a591d7aa4f48a8653ccaea6ca4
 ```
 
