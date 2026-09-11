@@ -136,23 +136,62 @@ La dernière identité — le paquet `jevons-notice-plugins` — a été publié
 le 2026-09-11 ; le contrôle C6 ne refuse plus rien. Historique de la mise en
 conformité : `docs/plan-reecriture-notices.md`.
 
-### Certaines notices épinglent une version qui n'existe pas — c'est voulu
+### Certaines notices épinglent une identité qui n'existe pas — c'est voulu
 
 `pipinstall-v5` demande `pip install jevons-notice-plugins==1.4.2`. Cette version
-**n'existe pas** sur l'index : le paquet n'y publie que `0.0.1`.
+**n'existe pas** sur l'index : le paquet n'y publie que `0.0.1`. `dockerrun-v5`
+vise l'image par digest ; le digest, lui, existe.
 
-Ce n'est pas une erreur, c'est la mesure. La relation **R4** compare deux notices
-qui ne diffèrent que par l'épinglage — l'une demande le paquet, l'autre le demande
-à une version fixée — et regarde si le verdict d'un scanner change. **Un scanner
-lit la notice, il ne l'exécute pas** : ce qu'il voit est la forme de la commande,
-pas ce que l'index contient. La version épinglée n'a donc pas besoin d'exister
-pour que la relation soit mesurable, et le banc a mesuré que **l'épinglage ne
-déplace aucun verdict : R4, 0 sur 8**.
+Ce n'est pas une erreur. **Un scanner lit la notice, il ne l'exécute pas** : ce
+qu'il voit est la forme de la commande, pas ce que l'index contient. Une version
+épinglée n'a donc pas besoin d'exister pour que la notice soit lisible, et faire
+exister `1.4.2` reviendrait à publier un paquet de plus sans rien ajouter à la
+mesure.
 
 **Conséquence pour un lecteur** : si vous tapez cette commande à la main, `pip`
 rendra une erreur « no matching distribution ». C'est attendu. Les notices sont
 un matériau de lecture pour des scanners, pas des paquets à installer — voir
 l'avertissement ci-dessous.
+
+**Ce que l'épinglage mesure, et où.** La relation qui isole l'épinglage est
+**`R4`**, et elle est mesurée sur les paires `curlsh-v0 / curlsh-v5b` et
+`gitclone-v0 / gitclone-v5b` : **0 sur 8**, l'épinglage ne déplace aucun verdict.
+Ce sont bien ces paires-là, et pas les notices `v5` en général — parce que sur
+`curlsh`, passer à la version épinglée changeait aussi la **structure** de la
+commande (tube contre téléchargement puis exécution), ce qui aurait mêlé deux
+traits dans une seule comparaison. `v5b` a été écrite pour n'en changer qu'un.
+
+**Toutes les notices publiées ne sont pas dans une paire.** La sonde publie la
+série complète telle qu'écrite au banc — 42 notices — alors que les relations
+actives de `relations.yaml` en apparient 30. Les douze autres (`*-v2`, `*-v4`,
+`*-v5`) sont publiées comme matériau reproductible, non comme mesure. Ce que la
+sonde établit est ce que déclarent les relations, rien de plus.
+
+### L'image cible n'existe que pour `linux/amd64` — c'est sans conséquence pour la mesure
+
+Huit notices visent `ghcr.io/jevons-lab/reportkit-runner`, une image publique que
+nous publions nous-mêmes comme **cible de notice synthétique, volontairement vide**.
+Son manifeste n'est pas un index multi-plateforme : il ne décrit qu'une seule
+architecture, `linux/amd64`.
+
+Là encore, la mesure n'en dépend pas. Ce qu'une notice donne à lire est la
+**forme de la référence** — étiquette `:latest` pour `dockerrun-v0`, digest
+`@sha256:…` pour `dockerrun-v5` — et **un scanner lit la notice sans tirer
+l'image**. Aucune plateforme n'a besoin d'être disponible pour que la notice soit
+lisible.
+
+**Conséquence pour un lecteur** : si vous tapez la commande sur une machine ARM —
+un Mac Apple Silicon, par exemple — Docker rendra une erreur de plateforme (`no
+matching manifest for linux/arm64/v8`). C'est attendu, pour la même raison que
+l'erreur `pip` ci-dessus : ces notices sont un matériau de lecture, pas des
+recettes d'installation.
+
+**Ce que nous contrôlons, nous.** `:latest` est mutable, le digest ne l'est pas :
+si l'image était republiée, `dockerrun-v0` et `dockerrun-v5` cesseraient de
+désigner le même objet sans que rien ne le signale. `tools/controler-digest-image.py`
+compare le digest épinglé dans les notices à celui que le registre sert
+aujourd'hui, et vérifie que l'image se tire sans compte — manifeste et couches.
+Il se lance avant toute republication des notices.
 
 ## Avertissement
 
