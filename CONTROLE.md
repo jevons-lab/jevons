@@ -14,7 +14,7 @@ configuré, aucun push n'est fait.**
 | C5 | aucun chemin absolu de l'hôte ou de l'enclave |
 | C6 | notices : cibles en domaines réservés seulement (spec 2 §2) |
 
-## Contenu de l'export — 64 fichiers
+## Contenu de l'export — 73 fichiers
 
 **(racine)** — 5 fichiers
 
@@ -29,7 +29,7 @@ configuré, aucun push n'est fait.**
 - `registre/README.md`
 - `registre/registre-public.md`
 
-**sonde/** — 57 fichiers
+**sonde/** — 66 fichiers
 
 - `sonde/.github/workflows/probe.yml`
 - `sonde/LICENSE-NOTICES`
@@ -71,7 +71,7 @@ configuré, aucun push n'est fait.**
 - `sonde/notices/gitclone-v1/SKILL.md`
 - `sonde/notices/gitclone-v2/SKILL.md`
 - `sonde/notices/gitclone-v3/SKILL.md`
-- … et 17 autres
+- … et 26 autres
 
 ## Substitutions déclarées — 12 fichiers
 
@@ -90,9 +90,7 @@ Chemins absolus de l'enclave remplacés par `<enclave>` :
 - `sonde/rapports-notices-publiables/skillvet/report.json`
 - `sonde/rapports-notices-publiables/skillvet/report.md`
 
-## Refusé par le contrôle — 9 fichiers
+## Refusé par le contrôle — 0 fichiers
 
-| contrôle | motif | fichiers |
-|---|---|---|
-| C6 | identité visée ni réservée ni détenue : paquet jevons-notice-plugins  [notice refusée en bloc] | `corpus/paires-publiables/pipinstall-v0-annexe/SKILL.md`, `corpus/paires-publiables/pipinstall-v0-annexe/scripts/install.sh`, `corpus/paires-publiables/pipinstall-v0/SKILL.md` … (9 au total) |
+Aucun.
 
