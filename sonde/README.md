@@ -131,8 +131,28 @@ Le contrôle est **mécanique** et refuse en bloc : `tools/preparer-export-publi
 contrôle C6. Une notice dont un seul fichier échoue est refusée entièrement —
 une page sans son annexe est une notice cassée.
 
-**État au 2026-09-09 : les 42 notices ne respectent pas cette règle et ne sont
-pas exportées.** Plan de mise en conformité : `docs/plan-reecriture-notices.md`.
+**État au 2026-09-11 : les 42 notices respectent la règle et sont exportées.**
+La dernière identité — le paquet `jevons-notice-plugins` — a été publiée sur PyPI
+le 2026-09-11 ; le contrôle C6 ne refuse plus rien. Historique de la mise en
+conformité : `docs/plan-reecriture-notices.md`.
+
+### Certaines notices épinglent une version qui n'existe pas — c'est voulu
+
+`pipinstall-v5` demande `pip install jevons-notice-plugins==1.4.2`. Cette version
+**n'existe pas** sur l'index : le paquet n'y publie que `0.0.1`.
+
+Ce n'est pas une erreur, c'est la mesure. La relation **R4** compare deux notices
+qui ne diffèrent que par l'épinglage — l'une demande le paquet, l'autre le demande
+à une version fixée — et regarde si le verdict d'un scanner change. **Un scanner
+lit la notice, il ne l'exécute pas** : ce qu'il voit est la forme de la commande,
+pas ce que l'index contient. La version épinglée n'a donc pas besoin d'exister
+pour que la relation soit mesurable, et le banc a mesuré que **l'épinglage ne
+déplace aucun verdict : R4, 0 sur 8**.
+
+**Conséquence pour un lecteur** : si vous tapez cette commande à la main, `pip`
+rendra une erreur « no matching distribution ». C'est attendu. Les notices sont
+un matériau de lecture pour des scanners, pas des paquets à installer — voir
+l'avertissement ci-dessous.
 
 ## Avertissement
 
